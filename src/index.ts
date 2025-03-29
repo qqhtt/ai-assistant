@@ -1,7 +1,11 @@
+#!/usr/bin/env node
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { exec } from "child_process";
 import { z } from "zod";
+
+// 设置 NODE_TLS_REJECT_UNAUTHORIZED 环境变量
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 // Create server instance
 const server = new McpServer({
@@ -45,10 +49,24 @@ server.tool(
 
 
 async function main() {
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error("AI Assistant MCP Server running on stdio");
+  try {
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    console.error("AI Assistant MCP Server running on stdio");
+  } catch (error) {
+    console.error("Fatal error in main():", error);
+    process.exit(1);
+  }
 }
+
+// 处理未捕获的异常
+process.on('uncaughtException', (error) => {
+  console.error('未捕获的异常:', error);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('未处理的 Promise 拒绝:', reason);
+});
 
 main().catch((error) => {
   console.error("Fatal error in main():", error);
