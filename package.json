@@ -1,0 +1,34 @@
+{
+  "name": "@jason/ai-assistant",
+  "version": "1.0.0",
+  "description": "AI Assistant",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "keywords": ["ai", "assistant", "mcp"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qqhtt/ai-assistant"
+  },
+  "author": {
+    "name": "Jason",
+    "email": "408764093@qq.com"
+  },
+  "bin": {
+    "ai-assistant": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "build"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.8.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.14",
+    "typescript": "^5.8.2"
+  }
+}
